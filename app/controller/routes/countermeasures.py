@@ -4,13 +4,13 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.controller.deps import get_db
-from app.controller.routes.websocket import manager
 from app.enum.status_enum import StatusEnum
 from app.schemas.cloud_resource_base import CountermeasureRequest, AttackResponse
 from app.services.attack_service import AttackService
 from app.services.countermeasure_service import CountermeasureService
 from app.services.log_service import LogService
 from app.services.resource_service import ResourceService
+from app.utils.websocket_manager import ConnectionManager
 
 router = APIRouter()
 
@@ -18,6 +18,7 @@ resource_service = ResourceService()
 attack_service = AttackService()
 log_service = LogService()
 countermeasure_service = CountermeasureService()
+manager = ConnectionManager()
 
 
 @router.post("/countermeasures/deploy", response_model=AttackResponse)
