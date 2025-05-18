@@ -1,4 +1,3 @@
-from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 from sqlalchemy import (
     Boolean, Column, DateTime, Enum, Integer, String
@@ -6,8 +5,8 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 from app.enum.resource_type import ResourceType
 from app.enum.status_enum import StatusEnum
+from app.models.attack import Base
 
-Base = declarative_base()
 
 class CloudResource(Base):
     __tablename__ = "cloud_resources"

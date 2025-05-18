@@ -1,4 +1,3 @@
-from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 from sqlalchemy import (
     Column, DateTime, Enum, Integer, Text, ForeignKey
@@ -6,8 +5,8 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 from app.enum.attack_type import AttackType
 from app.enum.status_enum import StatusEnum
+from app.models.user import Base
 
-Base = declarative_base()
 
 class Attack(Base):
     __tablename__ = "attacks"
