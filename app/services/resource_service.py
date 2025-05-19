@@ -29,8 +29,8 @@ class ResourceService:
             under_attack=False
         )
         db.add(resource)
-        await db.commit()
-        await db.refresh(resource)
+        db.commit()
+        db.refresh(resource)
 
         # Simulate resource becoming available after creation
         import asyncio
@@ -41,24 +41,24 @@ class ResourceService:
     async def _activate_resource(self, db: AsyncSession, resource_id: int):
         """Simulate resource activation after a delay"""
         import asyncio
-        await asyncio.sleep(5)  # Wait 5 seconds
+        asyncio.sleep(5)  # Wait 5 seconds
 
         async with AsyncSession(db.bind) as session:
             resource = await self.get_resource(session, resource_id)
             if resource:
                 resource.status = StatusEnum.running
-                await session.commit()
+                session.commit()
 
     async def get_resources(self, db: AsyncSession) -> List[CloudResource]:
         """Get all cloud resources"""
-        result = await db.execute(select(CloudResource))
+        result = db.execute(select(CloudResource))
         return result.scalars().all()
 
     async def get_resource(
         self, db: AsyncSession, resource_id: int
     ) -> Optional[CloudResource]:
         """Get a specific cloud resource by ID"""
-        result = await db.execute(
+        result = db.execute(
             select(CloudResource).where(CloudResource.id == resource_id)
         )
         return result.scalars().first()
@@ -70,26 +70,27 @@ class ResourceService:
         resource = await self.get_resource(db, resource_id)
         if resource:
             resource.status = status
-            await db.commit()
-            await db.refresh(resource)
+            db.commit()
+            db.refresh(resource)
         return resource
 
     async def update_attack_status(
         self, db: AsyncSession, resource_id: int, under_attack: bool
     ) -> Optional[CloudResource]:
         """Update a resource's under_attack status"""
-        resource = await self.get_resource(db, resource_id)
+        resource = await  self.get_resource(db, resource_id)
         if resource:
             resource.under_attack = under_attack
-            await db.commit()
-            await db.refresh(resource)
+            db.commit()
+            db.refresh(resource)
         return resource
 
     async def delete_resource(self, db: AsyncSession, resource_id: int) -> bool:
         """Delete a cloud resource"""
         resource = await self.get_resource(db, resource_id)
+        print("resource", resource_id)
         if resource:
-            await db.delete(resource)
-            await db.commit()
+            db.delete(resource)
+            db.commit()
             return True
         return False

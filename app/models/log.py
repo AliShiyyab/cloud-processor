@@ -4,7 +4,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 
-from app.models.attack import Base
+from app.core.database import Base
 
 
 class Log(Base):
