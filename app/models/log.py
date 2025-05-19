@@ -1,10 +1,12 @@
-from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 from sqlalchemy import (
     Column, DateTime, ForeignKey, Integer, String, Text
 )
 from sqlalchemy.orm import relationship
-Base = declarative_base()
+
+from app.core.database import Base
+
+
 class Log(Base):
     __tablename__ = "logs"
 

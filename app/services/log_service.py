@@ -26,8 +26,8 @@ class LogService:
             pid=pid if pid else self._generate_random_pid(),
         )
         db.add(log)
-        await db.commit()
-        await db.refresh(log)
+        db.commit()
+        db.refresh(log)
         return log
 
     async def get_logs(

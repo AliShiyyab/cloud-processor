@@ -26,6 +26,9 @@ if config.config_file_name is not None:
 
 # ✅ Import your model's Base class
 from app.models.user import Base  # <- Corrected import
+from app.models.cloud_resource import Base  # <- Corrected import
+from app.models.attack import Base  # <- Corrected import
+from app.models.log import Base  # <- Corrected import
 
 # ✅ Set target_metadata for Alembic
 target_metadata = Base.metadata

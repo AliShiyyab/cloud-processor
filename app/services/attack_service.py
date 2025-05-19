@@ -1,7 +1,6 @@
 import asyncio
 from datetime import datetime
 from typing import List, Optional
-
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
@@ -20,10 +19,7 @@ class AttackService:
         self.log_service = LogService()
         self.resource_service = ResourceService()
 
-    async def create_attack(
-            self, db: AsyncSession, attack_data: AttackCreate
-    ) -> Attack:
-        """Create a new attack record"""
+    async def create_attack(self, db: AsyncSession, attack_data: AttackCreate) -> Attack:
         attack = Attack(
             resource_id=attack_data.resource_id,
             attack_type=attack_data.attack_type,
@@ -31,15 +27,15 @@ class AttackService:
             details=attack_data.details,
         )
         db.add(attack)
-        await db.commit()
-        await db.refresh(attack)
+        db.commit()
+        db.refresh(attack)
         return attack
 
     async def get_attack(
             self, db: AsyncSession, attack_id: int
     ) -> Optional[Attack]:
         """Get a specific attack by ID"""
-        result = await db.execute(
+        result =  db.execute(
             select(Attack)
             .options(joinedload(Attack.resource))
             .where(Attack.id == attack_id)
@@ -119,8 +115,8 @@ class AttackService:
             attack.status = status
             attack.details = details
             attack.updated_at = datetime.utcnow()
-            await db.commit()
-            await db.refresh(attack)
+            db.commit()
+            db.refresh(attack)
         return attack
 
     async def _generate_attack_logs(
