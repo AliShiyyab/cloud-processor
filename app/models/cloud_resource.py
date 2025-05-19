@@ -7,6 +7,8 @@ from sqlalchemy.orm import relationship
 from app.core.database import Base
 from app.enum.resource_type import ResourceType
 from app.enum.status_enum import StatusEnum
+from app.models.attack import Base
+
 
 class CloudResource(Base):
     __tablename__ = "cloud_resources"
@@ -22,4 +24,3 @@ class CloudResource(Base):
     # Relationships
     logs = relationship("Log", back_populates="resource", cascade="all, delete-orphan")
     attacks = relationship("Attack", back_populates="resource", cascade="all, delete-orphan")
-

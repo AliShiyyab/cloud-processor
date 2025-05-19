@@ -7,6 +7,7 @@ from sqlalchemy.orm import relationship
 from app.core.database import Base
 from app.enum.attack_type import AttackType
 from app.enum.status_enum import StatusEnum
+from app.models.user import Base
 
 
 class Attack(Base):
