@@ -9,6 +9,15 @@ from fastapi import HTTPException, status
 
 router = APIRouter()
 
+
+@router.get("/me", response_model=[])
+async def get_me(db: Session = Depends(get_db)):
+    try:
+        current_user = crud_user.get_users(db, 0 ,10)
+        return current_user
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+
 @router.post("/login")
 def login(form_data: LoginUser, db: Session = Depends(get_db)):
     user = crud_user.get_user_by_email(db, email=form_data.email)

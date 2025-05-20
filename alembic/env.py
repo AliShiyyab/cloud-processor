@@ -6,31 +6,24 @@ from sqlalchemy import engine_from_config, pool
 from alembic import context
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
 load_dotenv()
 
-# Make sure app/ is on the path so imports work
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-# This is the Alembic Config object
 config = context.config
 
-# Set DB URL from .env
 database_url = os.getenv("DATABASE_URL")
 if database_url:
     config.set_main_option("sqlalchemy.url", database_url)
 
-# Set up logging
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# ✅ Import your model's Base class
-from app.models.user import Base  # <- Corrected import
-from app.models.cloud_resource import Base  # <- Corrected import
-from app.models.attack import Base  # <- Corrected import
-from app.models.log import Base  # <- Corrected import
+from app.models.user import Base
+from app.models.cloud_resource import Base
+from app.models.attack import Base
+from app.models.log import Base
 
-# ✅ Set target_metadata for Alembic
 target_metadata = Base.metadata
 
 def run_migrations_offline() -> None:
