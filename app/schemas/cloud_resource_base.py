@@ -20,7 +20,7 @@ class CloudResourceResponse(CloudResourceBase):
     under_attack: bool
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class LogBase(BaseModel):
     resource_id: int
@@ -38,7 +38,7 @@ class LogResponse(LogBase):
     resource: CloudResourceResponse
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class AttackBase(BaseModel):
     resource_id: int
@@ -56,7 +56,7 @@ class AttackResponse(AttackBase):
     resource: CloudResourceResponse
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class SimulateAttackRequest(BaseModel):
     resource_id: int
