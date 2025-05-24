@@ -23,6 +23,7 @@ from app.models.user import Base
 from app.models.cloud_resource import Base
 from app.models.attack import Base
 from app.models.log import Base
+from app.models.resource_metric import Base
 
 target_metadata = Base.metadata
 

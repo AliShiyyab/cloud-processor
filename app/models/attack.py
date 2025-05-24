@@ -1,6 +1,6 @@
 from datetime import datetime
 from sqlalchemy import (
-    Column, DateTime, Enum, Integer, Text, ForeignKey
+    Column, DateTime, Enum, Integer, Text, ForeignKey, Float
 )
 from sqlalchemy.orm import relationship
 
@@ -20,4 +20,8 @@ class Attack(Base):
     details = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    memory_impact = Column(Float, default=0.0)  # Memory consumption increase in GB
+    cpu_impact = Column(Float, default=0.0)     # CPU usage increase in %
+    duration = Column(Integer, default=0)       # Attack duration in seconds
+
     resource = relationship("CloudResource", back_populates="attacks")
