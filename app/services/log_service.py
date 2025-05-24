@@ -39,7 +39,7 @@ class LogService:
         if resource_id:
             query = query.where(Log.resource_id == resource_id)
 
-        result = await db.execute(query)
+        result = db.execute(query)
         return result.scalars().all()
 
     def _generate_random_pid(self) -> int:

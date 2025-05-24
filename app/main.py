@@ -16,7 +16,7 @@ app.add_middleware(
 )
 
 app.include_router(user.router, prefix="/api/users", tags=["users"])
-app.include_router(websocket.router, prefix="/api/ws", tags=["websocker"])
+app.include_router(websocket.router, tags=["websocker"])
 
 app.include_router(resources.router, prefix="/api/resources", tags=["resources"])
 

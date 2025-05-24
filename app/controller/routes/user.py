@@ -6,8 +6,7 @@ from app.enum.user_role import UserRole
 from app.services.user_service import UserService
 from app.utils.jwt import create_access_token
 from app.utils.security import verify_password
-from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Query
+from fastapi import APIRouter, Depends, Query
 from app.schemas.user import UserCreate, UserOut, LoginUser, UserResponse, UserWithResources
 from app.controller.deps import get_db
 from fastapi import HTTPException, status

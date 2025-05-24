@@ -51,7 +51,7 @@ class AttackService:
         if resource_id:
             query = query.where(Attack.resource_id == resource_id)
 
-        result = await db.execute(query)
+        result = db.execute(query)
         return result.scalars().all()
 
     async def update_attack_status(
